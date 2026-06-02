@@ -1,11 +1,13 @@
-// TODO: implementar
-// - input es el objeto usuario con campo `email`
-// - validar que contenga @ y un dominio (algo despues del @)
-// - NORMALIZAR a minusculas
-// - si pasa: { ok: true, valor: { ...input, email: emailEnMinusculas } }
-// - si falla: { ok: false, agente: 'agenteEmail', error: 'mensaje claro' }
-// - usa spread para NO mutar el original
+// Responsabilidad unica: validar y normalizar el email.
+// Debe tener formato usuario@dominio.tld. Normaliza a minusculas.
+// Transforma el objeto con spread (no muta el original).
 
 export function agenteEmail(input) {
-  return { ok: false, agente: 'agenteEmail', error: 'Sin implementar' };
+  const email = String(input.email ?? '').trim().toLowerCase();
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return { ok: false, agente: 'agenteEmail', error: 'El email debe tener formato usuario@dominio.tld.' };
+  }
+
+  return { ok: true, valor: { ...input, email } };
 }

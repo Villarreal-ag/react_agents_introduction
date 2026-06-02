@@ -1,26 +1,21 @@
-// TODO: implementar
-// - este agente recibe el RESULTADO del pipeline, no un pedido directo
-// - SIEMPRE se ejecuta, aunque el pipeline haya fallado antes
-// - su trabajo es consolidar el resultado final en una sola estructura legible
+// Agente especial: NO va dentro del pipeline. Se llama despues de ejecutar(...)
+// con el resultado completo, y SIEMPRE corre (haya fallado o no).
+// Su trabajo es consolidar todo en una estructura final legible.
 //
-// Entrada: el objeto que devuelve `ejecutar(...)` desde pipeline.js
-//   { ok, resultado?, agente?, error?, advertencias }
-//
-// Salida sugerida (no es un agente "normal", no usa { ok, valor }):
-//   {
-//     ok: true | false,
-//     pedido: <pedido enriquecido si paso, o el ultimo estado conocido>,
-//     errores: [ { agente, error } ] | [],
-//     advertencias: [...],
-//     resumen: 'texto corto que explique que paso'
-//   }
+// Entrada: lo que devuelve ejecutar(...):
+//   exito  -> { ok: true, resultado, advertencias }
+//   fallo  -> { ok: false, agente, error, parcial, advertencias }
 
 export function agenteReporte(resultadoPipeline) {
-  return {
-    ok: false,
-    pedido: null,
-    errores: [{ agente: 'agenteReporte', error: 'Sin implementar' }],
-    advertencias: [],
-    resumen: 'agenteReporte aun no esta implementado',
-  };
+  const { ok, resultado, parcial, agente, error, advertencias = [] } = resultadoPipeline;
+
+  // pedido enriquecido si paso; si no, el ultimo estado conocido antes del fallo
+  const pedido = resultado ?? parcial ?? null;
+  const errores = ok ? [] : [{ agente, error }];
+
+  const resumen = ok
+    ? `Pedido valido. Subtotal: ${pedido.subtotal}, total: ${pedido.total}.`
+    : `Pedido rechazado por ${agente}: ${error}.`;
+
+  return { ok, pedido, errores, advertencias, resumen };
 }

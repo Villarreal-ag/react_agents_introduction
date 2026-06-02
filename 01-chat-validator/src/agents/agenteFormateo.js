@@ -1,9 +1,11 @@
-// TODO: implementar
-// - input es un string
-// - quitar espacios al inicio/fin (trim)
-// - convertir a minusculas
-// - retornar { ok: true, valor: textoLimpio }
+// Responsabilidad unica: normalizar el texto.
+// Quita espacios al inicio/fin (trim) y pasa todo a minusculas.
 
 export function agenteFormateo(input) {
-  return { ok: false, agente: 'agenteFormateo', error: 'Sin implementar' };
+  if (typeof input !== 'string') {
+    return { ok: false, agente: 'agenteFormateo', error: 'El input debe ser un string' };
+  }
+
+  const textoLimpio = input.trim().toLowerCase();
+  return { ok: true, valor: textoLimpio };
 }

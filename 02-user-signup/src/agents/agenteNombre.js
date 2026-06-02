@@ -1,9 +1,17 @@
-// TODO: implementar
-// - input es un objeto usuario con campo `nombre`
-// - validar que nombre no este vacio y solo tenga letras y espacios
-// - si pasa: { ok: true, valor: input } (sin cambios)
-// - si falla: { ok: false, agente: 'agenteNombre', error: 'mensaje claro' }
+// Responsabilidad unica: validar el nombre.
+// No puede estar vacio y solo admite letras (incluye acentos/n) y espacios.
+// No transforma el objeto: si pasa, devuelve el input tal cual.
 
 export function agenteNombre(input) {
-  return { ok: false, agente: 'agenteNombre', error: 'Sin implementar' };
+  const nombre = String(input.nombre ?? '').trim();
+
+  if (nombre === '') {
+    return { ok: false, agente: 'agenteNombre', error: 'El nombre no puede estar vacio.' };
+  }
+
+  if (!/^[\p{L}\s]+$/u.test(nombre)) {
+    return { ok: false, agente: 'agenteNombre', error: 'El nombre solo puede contener letras y espacios.' };
+  }
+
+  return { ok: true, valor: input };
 }

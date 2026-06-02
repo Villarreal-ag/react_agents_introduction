@@ -12,6 +12,8 @@ export function ejecutar(input, agentes) {
         ok: false,
         agente: r.agente,
         error: r.error,
+        // dato parcial: ultimo estado conocido del dato antes del fallo
+        parcial: actual,
         advertencias,
       };
     }

@@ -1,9 +1,13 @@
-// TODO: implementar
-// - input es un string
-// - detectar si contiene una palabra de saludo: hola, hi o hey
-// - si la incluye: { ok: true, valor: { texto: input, saludo: true } }
-// - si no la incluye: { ok: false, agente: 'agenteContenido', error: 'Sin saludo detectado' }
+// Responsabilidad unica: detectar un saludo.
+// Busca las palabras hola, hi o hey (como palabra completa, no dentro de otra).
+// Se asume que input ya viene en minusculas.
 
 export function agenteContenido(input) {
-  return { ok: false, agente: 'agenteContenido', error: 'Sin implementar' };
+  const tieneSaludo = /\b(hola|hi|hey)\b/.test(input);
+
+  if (!tieneSaludo) {
+    return { ok: false, agente: 'agenteContenido', error: 'Sin saludo detectado' };
+  }
+
+  return { ok: true, valor: { texto: input, saludo: true } };
 }

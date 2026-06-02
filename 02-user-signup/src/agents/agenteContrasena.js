@@ -1,9 +1,12 @@
-// TODO: implementar
-// - input es el objeto usuario con campo `contrasena`
-// - validar que tenga al menos 8 caracteres
-// - si pasa: { ok: true, valor: input }
-// - si falla: { ok: false, agente: 'agenteContrasena', error: 'Minimo 8 caracteres' }
+// Responsabilidad unica: validar la contrasena.
+// Minimo 8 caracteres. No transforma el objeto.
 
 export function agenteContrasena(input) {
-  return { ok: false, agente: 'agenteContrasena', error: 'Sin implementar' };
+  const contrasena = String(input.contrasena ?? '');
+
+  if (contrasena.length < 8) {
+    return { ok: false, agente: 'agenteContrasena', error: 'Minimo 8 caracteres' };
+  }
+
+  return { ok: true, valor: input };
 }
