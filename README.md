@@ -1,6 +1,6 @@
 # react_agents_introduction
 
-Ejercicios introductorios sobre el concepto de "agentes" como pipeline de validación en React + Vite. Referencia: issue **#4731** (WardLab1-0/workflow).
+Ejercicios introductorios sobre el concepto de "agentes" como pipeline de validación en React + Vite.
 
 > Aclaración: en este repo "agente" significa **función con responsabilidad única que valida o transforma un dato dentro de un pipeline**. No es un agente LLM.
 
